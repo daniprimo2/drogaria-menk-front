@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import './main.sass'
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { getUsuario } from "../../../services/NovoUsuario/NovoUsaurio";
+import { deleteUsuario, getUsuario } from "../../../services/NovoUsuario/NovoUsaurio";
+import { toast } from "react-toastify";
 
 
 function BuscaUsuarios({atualziarPeloAdicionar}) {
@@ -64,7 +65,13 @@ function BuscaUsuarios({atualziarPeloAdicionar}) {
     };
   
     const handlerDeletarUsuario = (id) => {
-        
+      deleteUsuario(id)
+      .then((resp) => {
+        toast.success(resp.data.descricao)
+        setAtualziar(!atualizar)
+      }).catch((e) => {
+        toast.error("Usuario nao foi encontrado.")
+      })
     }
 
   return (
