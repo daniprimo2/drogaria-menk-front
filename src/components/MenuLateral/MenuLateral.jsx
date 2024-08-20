@@ -14,13 +14,18 @@ function MenuLateral({mostra, mostraSubMenu, setMostraSubMenu, nomeMenu}) {
         {path: "/buscarParcelas", label: "Buscar Parcelas"}
     ];
 
+    
+    const menuUsuario = [
+      {path: "/novoUsuario", label: "Adicionar Usuario"}
+  ];
+
 
     return (
     <div className={mostra ? "active" : "sidenav"}>
                 <img src={logo} alt="Logo da Drogaria" id="logo" />
 
         <CampoSimples nomeMenu={"Home"} />
-        {/*<Campo nomeMenu={"Administracao"} listaSubMenus={menuAdministracao}/>*/}
+        <Campo nomeMenu={"Usuario"} listaSubMenus={menuUsuario}/>
     </div>
   )
 }

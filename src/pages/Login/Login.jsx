@@ -82,7 +82,7 @@ function Login() {
             </div>
 
         </form>
-        {loading && <LoadingSpinner mensagem={"Carregando API"}/>}
+        {loading && <LoadingSpinner mensagem={"Carregando API..."}/>}
 
     </aside>
     
