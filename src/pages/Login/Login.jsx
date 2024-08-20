@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';     
 
+import logo from '../../image/Logo_Drogaria_Menk-removebg-preview.png'
+import { autenticar } from '../../services/Autenticacao/ApiAuth';
+import { verificarServidor } from '../../services/ApiBase/ApiBase';
+import LoadingSpinner from '../../components/Loading/LoadingSpinner';
 
 function Login() {
   const [login, setLogin] = useState("")
@@ -23,6 +27,15 @@ function Login() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     
+    
+    autenticar(data).then((e) => {
+      console.log(e.data)
+      toast.success("Usuario logado")
+      navigate("/home")
+    }).catch((e) => {
+      toast.error("Usuário não indentificado.")
+    })
+
   }
 
   setTimeout(() => {
@@ -31,13 +44,18 @@ function Login() {
 
 
   useEffect(() => {
-    }, [atualizar])
+    verificarServidor().then((resp) => {
+      setLoading(false)
+    }).catch(() => {
+      setLoading(true)
+    })
+  }, [atualizar])
 
 
   return (
     <aside id='login'>
         <form>
-            <h1>DROGARIA MENK</h1>
+        <img src={logo} alt="Logo da Drogaria" id="logo" />
             <div id='campo-credenciais'>
 
               <div className='campo'>
@@ -64,8 +82,10 @@ function Login() {
             </div>
 
         </form>
+        {loading && <LoadingSpinner mensagem={"Carregando API"}/>}
 
     </aside>
+    
 
   )
 }
