@@ -26,13 +26,15 @@ function Login() {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    
+    setLoading(true)
     
     autenticar(data).then((e) => {
       console.log(e.data)
       toast.success("Usuario logado")
       navigate("/home")
+      setLoading(false)
     }).catch((e) => {
+      setLoading(false)
       toast.error("Usuário não indentificado.")
     })
 
